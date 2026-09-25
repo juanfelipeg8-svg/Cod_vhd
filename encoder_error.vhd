@@ -15,22 +15,12 @@ ENTITY encoder_error IS
     );
 END ENTITY;
 
-ARCHITECTURE Behavioral OF encoder_error IS
+ARCHITECTURE structural OF encoder_error IS
 BEGIN
-    PROCESS(A, B, C, D, N)
-    BEGIN
-        IF N = "00" THEN
-            -- Sin error: pasar datos tal cual
-            S_1 <= A;
-            S_2 <= B;
-            S_3 <= C;
-            S_4 <= D;
-        ELSE
-            -- Con error: mostrar EEEE
-            S_1 <= "1110";
-            S_2 <= "1110";
-            S_3 <= "1110";
-            S_4 <= "1110";
-        END IF;
-    END PROCESS;
-END Behavioral;
+    -- Corrección del módulo original: se elimina PROCESS.
+    -- N="00" = sin error; cualquier otro valor = mostrar EEEE.
+    S_1 <= A WHEN N = "00" ELSE "1110";
+    S_2 <= B WHEN N = "00" ELSE "1110";
+    S_3 <= C WHEN N = "00" ELSE "1110";
+    S_4 <= D WHEN N = "00" ELSE "1110";
+END ARCHITECTURE;
