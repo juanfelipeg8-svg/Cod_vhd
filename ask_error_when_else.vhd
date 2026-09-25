@@ -9,8 +9,11 @@ ENTITY ask_error_when_else IS
     );
 END ENTITY;
 
-ARCHITECTURE Behavioral OF ask_error_when_else IS
+ARCHITECTURE structural OF ask_error_when_else IS
 BEGIN
-    -- Sin error
-    E <= "00";
-END Behavioral;
+    -- E(0): error en A
+    -- E(1): error en B
+    -- En modo BCD los operandos válidos son 0000 a 1001.
+    E(0) <= '1' WHEN A > "1001" ELSE '0';
+    E(1) <= '1' WHEN B > "1001" ELSE '0';
+END ARCHITECTURE;
